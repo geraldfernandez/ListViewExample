@@ -1,6 +1,7 @@
 package com.example.geraldfernandez.listviewexample;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -37,6 +39,13 @@ public class BarangListActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        SharedPreferences myPrefs = getSharedPreferences("myPrefs", 0);
+        if(myPrefs.contains("nama")){
+            String nama = myPrefs.getString("nama", "Nama was not found!");
+            String username = myPrefs.getString("username", "username was not found!");
+            Toast.makeText(this, "Nama: "+nama+" "+username, Toast.LENGTH_LONG).show();
+        }
 
         BarangListAdapter adapter = new BarangListAdapter(this, R.layout.list_item, listBarang);
         barangListView = (ListView) findViewById(R.id.barangListView);
